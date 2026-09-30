@@ -8,7 +8,6 @@ class TRUTHAuditor:
     """
 
     def __init__(self):
-        # RTPP Rule 43(7) Minimum Window Thresholds (in Days)
         self.RULE_43_THRESHOLDS = {
             "BELOW_10_LAKH": 7.0,      # Works up to Rs. 10 Lakhs -> Min 7 days
             "BETWEEN_10L_2CR": 10.0,   # Works Rs. 10 Lakhs to Rs. 2 Crores -> Min 10 days
@@ -45,7 +44,7 @@ class TRUTHAuditor:
         delta_seconds = (close_dt - pub_dt).total_seconds()
         bidding_window_days = round(delta_seconds / 86400.0, 2)
 
-        # Determine statutory minimum under RTPP Rule 43(7)
+   
         if cost_inr <= 1_000_000:
             mandated_min_days = self.RULE_43_THRESHOLDS["BELOW_10_LAKH"]
         elif cost_inr <= 20_000_000:
@@ -55,7 +54,7 @@ class TRUTHAuditor:
 
         deficit = round(mandated_min_days - bidding_window_days, 2)
 
-        # Evaluate compliance status
+    
         if bidding_window_days >= mandated_min_days:
             status = "COMPLIANT"
             severity = "GREEN"
@@ -82,11 +81,27 @@ class TRUTHAuditor:
 if __name__ == "__main__":
     auditor = TRUTHAuditor()
 
-    # Benchmark run on empirical Chirawa PWD case
     sample_records = [
+        ("2026_CEPWD_602242_1", "30-Sep-2026 05:00 PM", "20-Oct-2026 06:00 PM", 2500000, "PWD City III"),
+        ("2026_CEPWD_602194_1", "30-Sep-2026 05:00 PM", "05-Oct-2026 04:00 PM", 850000, "PWD Nohar"),
+        ("2026_CEPWD_602194_2", "30-Sep-2026 05:00 PM", "05-Oct-2026 06:00 PM", 900000, "PWD Nohar"),
+        ("2026_CEPWD_602191_1", "30-Sep-2026 05:00 PM", "05-Oct-2026 06:00 PM", 750000, "PWD Nohar"),
+        ("2026_CEPWD_602195_1", "30-Sep-2026 04:30 PM", "07-Oct-2026 11:30 AM", 600000, "PWD Kuraj"),
+        ("2026_CEPWD_602197_1", "30-Sep-2026 04:30 PM", "07-Oct-2026 06:00 PM", 650000, "PWD Nawalgarh"),
+        ("2026_CEPWD_602129_1", "30-Sep-2026 01:40 PM", "07-Oct-2026 06:00 PM", 1200000, "PWD Nawalgarh"),
+        ("2026_CEPWD_602147_1", "30-Sep-2026 01:20 PM", "07-Oct-2026 06:00 PM", 1100000, "PWD Nawalgarh"),
+        ("2026_CEPWD_602074_1", "30-Sep-2026 04:15 PM", "06-Oct-2026 06:00 PM", 400000, "PWD Neem-Ka-Thana"),
         ("2026_CEPWD_602128_1", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 4896000, "PWD Chirawa"),
+        ("2026_CEPWD_602128_2", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 873000, "PWD Chirawa"),
         ("2026_CEPWD_602128_6", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 495000, "PWD Chirawa"),
-        ("2026_PHCJO_602073_1", "30-Sep-2026 02:00 PM", "12-Oct-2026 06:00 PM", 2302000, "PHED Sojat City"),
+        ("2026_CEPWD_602128_3", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 1804000, "PWD Chirawa"),
+        ("2026_CEPWD_602128_5", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 1000000, "PWD Chirawa"),
+        ("2026_CEPWD_602128_4", "30-Sep-2026 03:30 PM", "04-Oct-2026 06:00 PM", 792000, "PWD Chirawa"),
+        ("2026_CEPWD_602126_1", "30-Sep-2026 03:15 PM", "23-Oct-2026 06:00 PM", 3500000, "PWD Alwar"),
+        ("2026_CEPWD_602119_1", "30-Sep-2026 03:15 PM", "12-Oct-2026 06:00 PM", 17574000, "PWD Bhilwara"),
+        ("2026_CEPWD_601957_1", "30-Sep-2026 02:30 PM", "08-Oct-2026 06:00 PM", 1500000, "PWD Churu"),
+        ("2026_CEPWD_601931_1", "30-Sep-2026 02:20 PM", "22-Oct-2026 06:00 PM", 4200000, "PWD Khairthal"),
+        ("2026_CEPWD_601931_2", "30-Sep-2026 02:15 PM", "22-Oct-2026 06:00 PM", 5100000, "PWD Khairthal")
     ]
 
     print(f"{'TENDER ID':<22} | {'COST (INR)':<10} | {'WINDOW':<10} | {'MANDATE':<8} | {'STATUS'}")
