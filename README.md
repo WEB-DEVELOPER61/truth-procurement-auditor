@@ -1,15 +1,23 @@
-# truth-pr# Project TRUTH: Automated Public Procurement Compliance Engine
+# Project TRUTH: Forensic Auditing of Statutory Timeline Compression in Public Procurement
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://truth-procurement-auditor-611.streamlit.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Forensic Standard: RFC 6962](https://img.shields.io/badge/Integrity-RFC%206962%20Merkle-green.svg)](https://datatracker.ietf.org/doc/html/rfc6962)
 
 **Author:** Piyush Jakhar  
-**Category:** Systems Software (SOFT)  
-**Target:** IRIS National Science Fair 2026  
-**Benchmark Statute:** Rajasthan Transparency in Public Procurement (RTPP) Rules, 2013 (Rule 43)
+**Subject Category:** Systems Software (SOFT)  
+**Target Fair:** IRIS National Science Fair 2026  
+**Production Live Dashboard:** [Streamlit Cloud](https://truth-procurement-auditor-611.streamlit.app/)
 
-## Overview
-TRUTH is an automated regulatory auditing pipeline designed to evaluate public tender notices against statutory transparency mandates. It parses procurement metadata (tender value, publication timestamp, and submission deadlines) to detect timeline compression anomalies.
+---
 
-## Empirical Findings (Chirawa PWD Case Study)
-- **Tender Notice:** NIT 07/2026-27 (Value: ₹98.60 Lacs)
-- **Observed Bidding Window:** 4.10 Days (~98 Hours)
-- **Statutory Mandate (Rule 43):** 7 to 10 Days
-- **Engine Audit Verdict:** `CRITICAL_VIOLATION`ocurement-auditor
+## 📌 Project Overview
+
+Project TRUTH (**T**ransparency in **R**oad **U**tilities and **T**enders **H**ub) is an end-to-end civic auditing and digital forensic systems pipeline. It evaluates public procurement notices against statutory transparency mandates defined under Rule 43 of the **Rajasthan Transparency in Public Procurement (RTPP) Rules, 2013**.
+
+The system programmatically ingests semi-structured notice feeds, isolates chronological and financial metadata, runs high-dimensional unsupervised anomaly detection, builds a tamper-evident cryptographic chain of custody, and auto-compiles ready-to-file legal petitions under Section 6(1) of the **Right to Information (RTI) Act, 2005**.
+
+---
+
+## 🏗️️ Systems Architecture Layout
