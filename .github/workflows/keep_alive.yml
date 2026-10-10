@@ -2,9 +2,9 @@ name: Keep Streamlit App Alive
 
 on:
   schedule:
-    # Runs every 6 hours (Streamlit sleeps after 48-72h of inactivity)
+   
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Allows you to manually trigger it anytime
+  workflow_dispatch:
 
 jobs:
   wake_up:
@@ -39,7 +39,7 @@ jobs:
           driver.get(target_url)
           time.sleep(10)
 
-          # If the app is sleeping, locate and click 'Yes, get this app back up!'
+      
           try:
               buttons = driver.find_elements(By.TAG_NAME, 'button')
               woke_up = False
