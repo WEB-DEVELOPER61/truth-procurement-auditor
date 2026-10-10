@@ -1,0 +1,61 @@
+name: Keep Streamlit App Alive
+
+on:
+  schedule:
+    # Runs every 6 hours (Streamlit sleeps after 48-72h of inactivity)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows you to manually trigger it anytime
+
+jobs:
+  wake_up:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install selenium webdriver-manager
+
+      - name: Ping and Wake App
+        run: |
+          python -c "
+          import time
+          from selenium import webdriver
+          from selenium.webdriver.chrome.service import Service
+          from selenium.webdriver.common.by import By
+          from webdriver_manager.chrome import ChromeDriverManager
+
+          options = webdriver.ChromeOptions()
+          options.add_argument('--headless')
+          options.add_argument('--no-sandbox')
+          options.add_argument('--disable-dev-shm-usage')
+
+          driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+          target_url = 'https://truth-procurement-auditor-611.streamlit.app/'
+          print(f'Connecting to {target_url}...')
+          driver.get(target_url)
+          time.sleep(10)
+
+          # If the app is sleeping, locate and click 'Yes, get this app back up!'
+          try:
+              buttons = driver.find_elements(By.TAG_NAME, 'button')
+              woke_up = False
+              for btn in buttons:
+                  if 'get this app back up' in btn.text.lower():
+                      print('App is asleep. Clicking wake button...')
+                      btn.click()
+                      woke_up = True
+                      time.sleep(20)
+                      print('Wake-up signal dispatched successfully!')
+                      break
+              if not woke_up:
+                  print('App is already awake and operational.')
+          except Exception as e:
+              print(f'Check error: {e}')
+
+          driver.quit()
+          print('Keep-alive cycle complete.')
+          "
